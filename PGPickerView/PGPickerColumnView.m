@@ -56,8 +56,9 @@ static NSString *const cellReuseIdentifier = @"PGPickerColumnCell";
         self.downLineHeight = downLineHeight;
         self.backgroundColor = [UIColor clearColor];
         self.upLinePosY = (self.bounds.size.height - self.rowHeight) / 2 - self.upLineHeight;
-        NSInteger index = self.upLinePosY / self.rowHeight;
-        self.offsetCount = index + 1;
+//        NSInteger index = self.upLinePosY / self.rowHeight;
+//        self.offsetCount = index + 1;
+        self.offsetCount = round(self.upLinePosY / self.rowHeight);
         self.offset = self.offsetCount * self.rowHeight - self.upLinePosY;
         if (self.offset == self.rowHeight) {
             self.offset = 0;
@@ -117,6 +118,7 @@ static NSString *const cellReuseIdentifier = @"PGPickerColumnCell";
     centerView.clipsToBounds = true;
     [self addSubview:centerView];
     self.centerView = centerView;
+    
     [self setupTableView];
 }
 
@@ -146,7 +148,6 @@ static NSString *const cellReuseIdentifier = @"PGPickerColumnCell";
         self.centerTableView = tableView;
         [self bringSubviewToFront:tableView];
     }
-    
     {
         CGRect frame = [self convertRect:self.upTableView.frame toView:self.downView];
         PGPickerTableView *tableView = [[PGPickerTableView alloc]initWithFrame:frame style:UITableViewStylePlain];
